@@ -1,4 +1,4 @@
-name: Run Pytest
+name: Run Selenium Pytest
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -26,4 +26,10 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests/test_login.py -v
+        pytest tests/test_login.py --html=report.html
+
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test Report
+        path: report.html
